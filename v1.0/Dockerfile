@@ -2,6 +2,12 @@ FROM uzresk/ansible-serverspec:latest
 
 LABEL maintainer "uzresk"
 
+# set locale ja_JP.UTF-8, timezone
+RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8;
+env LANG=ja_JP.UTF-8
+RUN rm -f /etc/localtime
+RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
 # install jupyter and jupyter extension
 RUN pip install jupyter
 RUN pip install jupyter_nbextensions_configurator && \
